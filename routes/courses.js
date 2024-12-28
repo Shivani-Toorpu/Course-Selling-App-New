@@ -1,14 +1,21 @@
 const { Router } = require("express");
 const courseRouter = Router();
-
-// Import models
 const { courseModel } = require("../db");
 
-// Course routes
-courseRouter.get("/courses", (req, res) => {
-    res.json({
-        message: "All available courses",
-    });
+// Fetch All Available Courses
+courseRouter.get("/courses", async (req, res) => {
+    try {
+        const courses = await courseModel.find();
+        res.json({
+            message: "All available courses",
+            courses,
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: "Error fetching courses",
+            error: error.message,
+        });
+    }
 });
 
-module.exports = courseRouter;
+module.exports = { courseRouter };

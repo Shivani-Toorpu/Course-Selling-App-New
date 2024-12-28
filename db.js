@@ -24,7 +24,8 @@ const courseSchema = new Schema({
     title: String,
     description: String,
     price: Number,
-    image: String,
+    imageURL: String,
+    creatorId: { type: ObjectId, ref: "Admin" },
 });
 
 const purchaseSchema = new Schema({
@@ -38,7 +39,6 @@ const adminModel = mongoose.model("Admin", adminSchema);
 const courseModel = mongoose.model("Course", courseSchema);
 const purchaseModel = mongoose.model("Purchase", purchaseSchema);
 
-// MongoDB automatically converts the model names (e.g., "User") to lowercase and pluralized collection names (e.g., "users").
 module.exports = {
     userModel,
     adminModel,
